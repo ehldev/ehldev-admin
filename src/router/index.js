@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import ProjectsRoutes from '../modules/Projects/Routes'
 
 Vue.use(VueRouter)
 
-const routes = [
+let routes = [
   {
     path: '/',
     name: 'Home',
@@ -19,6 +20,8 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   }
 ]
+
+routes.push(ProjectsRoutes[0])
 
 const router = new VueRouter({
   mode: 'history',
