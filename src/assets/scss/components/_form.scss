@@ -1,0 +1,33 @@
+.admin-form {
+    margin-top: 16px !important;
+
+    &-sm {
+        max-width: 720px;
+        margin: 0 auto;
+    }
+
+    label {
+        font-size: 14px;
+        font-weight: 500;
+        color: $admin-dark;
+        display: inline-block;
+        margin-bottom: 8px;
+    }
+    
+    &-group {
+        margin-bottom: 16px;
+    }
+
+    &-field {
+        width: 100%;
+        display: block;
+        padding: .7rem;
+        border-radius: 8px;
+        border: 1px solid rgba($admin-gray, .3);
+        outline: none;
+
+        &:focus {
+            border: 1px solid rgba($admin-blue, .9) !important;
+        }
+    }
+}

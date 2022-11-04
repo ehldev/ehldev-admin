@@ -1,5 +1,6 @@
 import ProjectsView from "../ProjectsView.vue";
 import ProjectsList from "../Pages/List.vue";
+import ProjectsEditor from "../Pages/Editor.vue";
 
 const routes = [
   {
@@ -29,7 +30,12 @@ const routes = [
       {
         path: 'create',
         name: 'projects-create',
-        component: ProjectsList
+        component: ProjectsEditor
+      },
+      {
+        path: 'edit/:id',
+        name: 'projects-edit',
+        component: ProjectsEditor
       },
       // {
       //   path: 'products/:id/edit',

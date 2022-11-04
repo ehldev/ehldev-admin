@@ -1,5 +1,5 @@
 <template>
-  <div class="admin-dropdown position-relative">
+  <div class="admin-dropdown position-relative" :class="[contentPosition]">
       <div class="cursor-pointer" @click="showContent = !showContent">
           <slot name="toggle"></slot>
       </div>
@@ -19,6 +19,7 @@ export default {
             showContent: false
         }
     },
+    props: ['contentPosition'],
     methods: {
         hide() {
             this.showContent = false
@@ -35,6 +36,7 @@ export default {
     &-content {
         min-width: 150px;
         border: 1px solid rgba($admin-gray, .2) !important;
+        border-radius: 8px;
         position: absolute;
         top: 110%;
         right: 0;
@@ -53,6 +55,13 @@ export default {
         right: 0;
         bottom: 0;
         z-index: 100;
+    }
+
+    &.left {
+        .admin-dropdown-content {
+            right: initial;
+            left: 0;
+        }
     }
 }
 </style>
