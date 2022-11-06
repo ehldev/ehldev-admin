@@ -1,19 +1,24 @@
 <template>
-  <section>
+  <section class="admin-upload-widget">
     <button
       type="button"
-      id="upload_widget"
-      class="admin-button admin-button-primary"
+      class="preview-form-image upload-button d-flex flex-column main-shadow"
       @click="openImageWidget()"
+      v-if="files.length < maxFiles"
     >
-      Seleccionar imagen
       <i class="ri-image-line"></i>
+      Seleccionar imagen
     </button>
 
-    {{ files.length }}
-
-    <div class="preview-form-image" v-for="item in files" :key="item.id">
+    <div
+      class="preview-form-image position-relative main-shadow"
+      v-for="(item, index) in files"
+      :key="item.id"
+    >
       <img :src="item.url" alt="" />
+      <button type="button" class="remove-item" @click="removeItem(index)">
+        <i class="ri-close-circle-line"></i>
+      </button>
     </div>
   </section>
 </template>
@@ -29,7 +34,7 @@ export default {
         language: "es",
         folder: "ehldev",
         cropping: false,
-        multiple: false,
+        multiple: this.multipleFiles,
         text: {
           es: {
             queue: {
@@ -61,20 +66,19 @@ export default {
           },
         },
       },
-      files: []
+      files: [],
     };
   },
   props: {
-    multiple: {
-        type: Boolean,
-        default: false
+    multipleFiles: {
+      type: Boolean,
+      default: false,
     },
-    maxFiles: Number
+    maxFiles: Number,
   },
   methods: {
     openImageWidget() {
       if (window.cloudinary) {
-        let _this = this
         let uploadWidget = window.cloudinary.createUploadWidget(
           this.cloudinaryConfig,
           (error, result) => {
@@ -88,17 +92,17 @@ export default {
                 description: null,
               };
 
-              let file = JSON.parse(JSON.stringify(image))
+              let file = JSON.parse(JSON.stringify(image));
 
-              if (_this.multiple) {
-                _this.files.push(file)
+              if (this.multipleFiles) {
+                this.files.push(file);
               } else {
-                _this.files[0] = file
+                this.files[0] = file;
               }
 
-              console.log(_this.files)
+              this.files = [...this.files];
 
-              _this.$emit('success', _this.files)
+              this.$emit("success", this.files);
             }
           }
         );
@@ -106,9 +110,60 @@ export default {
         uploadWidget.open();
       }
     },
+    removeItem(index) {
+      this.files.splice(index, 1);
+    },
   },
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.admin-upload-widget {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 16px;
+
+  .preview-form-image {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px dashed rgba($admin-gray, 0.3);
+    border-radius: 8px;
+    transition: border-color 0.1s;
+    cursor: pointer;
+
+    &:hover {
+      border: 1px dashed $admin-blue;
+
+      .upload-button {
+        color: rgba($admin-blue, 0.9);
+      }
+    }
+  }
+
+  .upload-button {
+    color: rgba($admin-gray, 0.9);
+
+    &:hover {
+      color: rgba($admin-blue, 0.9);
+    }
+  }
+
+  i {
+    font-size: 24px;
+  }
+
+  .remove-item {
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    border: none;
+    border-radius: 50%;
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+  }
+}
 </style>

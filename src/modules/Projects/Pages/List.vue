@@ -72,7 +72,7 @@
               </td>
               <td class="text-left">
                 <a :href="getUrl(item)" target="_blank" class="admin-table-link"
-                  >{{ item.title }} <i class="ri-external-link-line"></i
+                  >{{ item.name }} <i class="ri-external-link-line"></i
                 ></a>
               </td>
               <td>{{ item.level }}</td>

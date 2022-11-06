@@ -2,27 +2,18 @@
   <section>
     <div class="d-flex justify-content-between">
       <h1 class="admin-name">{{ slug ? "Editar" : "Registrar" }} proyecto</h1>
-
-      <router-link to="/" class="admin-button admin-button-primary">
-        Agregar
-        <i class="ri-add-fill"></i>
-      </router-link>
     </div>
 
     <div class="admin-card mt-6">
-      <form action="" class="admin-form admin-form-sm">
+      <pre>
+        {{ form }}
+      </pre>
+
+      <form action="" class="admin-form admin-form-sm" @submit.prevent="save()">
         <div class="admin-form-group">
           <label for="name">Imagen destacada</label>
 
-          <AdminUploadWidget :multiple="false" :maxFiles="1" />
-
-          <!-- <input
-            type="text"
-            id="name"
-            class="admin-form-field"
-            placeholder="Ingresar"
-            v-model="form.name"
-          /> -->
+          <AdminUploadWidget :multipleFiles="false" :maxFiles="1" @success="setImages($event, 'image')" />
         </div>
 
         <div class="admin-form-group">
@@ -94,38 +85,25 @@
         </div>
 
         <div class="admin-form-group">
-          <label for="name">Galería de imágenes</label>
+          <label for="name" class="mb-0">Galería de imágenes</label>
+          <p class="admin-form-description">Máximo 6 imágenes</p>
 
-          <button
-            type="button"
-            id="upload_widget"
-            class="admin-button admin-button-primary"
-            @click="openImageWidget('images')"
-          >
-            Seleccionar imágenes
-            <i class="ri-image-line"></i>
-          </button>
-
-          <!-- <input
-            type="text"
-            id="name"
-            class="admin-form-field"
-            placeholder="Ingresar"
-            v-model="form.name"
-          /> -->
+          <AdminUploadWidget :multipleFiles="true" :maxFiles="6" @success="setImages($event, 'images')" />
         </div>
 
         <div class="admin-form-group d-flex justify-content-end">
           <router-link
             :to="{ name: 'projects-list' }"
             type="submit"
-            class="admin-button admin-button-light mr-2"
+            class="admin-button admin-button-light admin-button-cancel mr-2"
           >
+            <i class="ri-close-line"></i>
             Cancelar
           </router-link>
 
           <button type="submit" class="admin-button admin-button-primary">
             Guardar
+            <i class="ri-save-line"></i>
           </button>
         </div>
       </form>
@@ -140,7 +118,7 @@ import Utils from "@/utils";
 
 import ProjectsService from "../Services";
 
-import AdminUploadWidget from '@/AdminUploadWidget'
+import AdminUploadWidget from "@/AdminUploadWidget";
 
 export default {
   data() {
@@ -149,10 +127,10 @@ export default {
       slug: this.$route.params.slug,
       uploadType: null,
       form: {
-        name: null,
-        description: "",
-        summary: "",
-        slug: null,
+        name: "Agap",
+        description: "Agap",
+        summary: "Agap",
+        slug: "agap",
         image: null,
         images: [],
         url: null,
@@ -204,10 +182,9 @@ export default {
       let editor = new Quill("#editor", options);
       editor.enable();
     }, 1000);
-    this.getItems();
   },
   components: {
-    AdminUploadWidget
+    AdminUploadWidget,
   },
   watch: {
     "form.name": function (val) {
@@ -215,23 +192,16 @@ export default {
     },
   },
   methods: {
-    async getItems() {
-      try {
-        let res = await ProjectsService.list();
-        this.totalItems = res.data.total;
-        this.items = res.data.docs;
-      } catch (error) {
-        console.log(error);
+    async save() {
+      let response = await ProjectsService.save({ ...this.form, tags: JSON.stringify(this.form.tags) });
+      console.log(response);
+    },
+    setImages(e, type) {
+      if(type === 'image') {
+        this.form.image = e[0]
+      } else {
+        this.form.images = e
       }
-    },
-    getUrl(item) {
-      return `${process.env.VUE_APP_WEB_URL}/proyectos/${item.slug}`;
-    },
-    getStatus(object) {
-      return this.projectStatus.find((item) => item.key === object.status);
-    },
-    myCallback() {
-      console.log("Pagination");
     }
   },
 };
