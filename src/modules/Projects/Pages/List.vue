@@ -14,6 +14,9 @@
 
     <div class="admin-card mt-6">
       <div class="table-container">
+
+        <span class="table-no-data-label" v-if="!items.length">Aún no hay registros</span>
+
         <div
           class="admin-table-options d-flex justify-content-between align-items-start"
         >
@@ -148,8 +151,9 @@ export default {
       ],
       paginationOptions: {
         texts: {
-          count:
-            "Mostrando {from} a {to} registros de {count} en total|{count} en total| Un registro encontrado",
+          count: ''
+          // count:
+            // "Mostrando {from} a {to} registros de {count} en total|{count} en total| Un registro encontrado",
         },
       },
       filters: [

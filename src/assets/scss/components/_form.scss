@@ -16,6 +16,10 @@
     
     &-group {
         margin-bottom: 16px;
+
+        &:last-child {
+            margin-top: 32px !important;
+        }
     }
 
     &-field {
@@ -29,5 +33,14 @@
         &:focus {
             border: 1px solid rgba($admin-blue, .9) !important;
         }
+    }
+    
+    .preview-form-image {
+        width: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid tomato;
+        margin-top: 16px;
     }
 }

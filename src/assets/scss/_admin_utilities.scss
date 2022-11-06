@@ -130,6 +130,11 @@
             color: rgba($admin-dark, .85);
         }
     }
+
+    &-light {
+        background-color: $admin-light;
+        color: $admin-dark !important;
+    }
 }
 
 @for $n from 0 through 10 {
