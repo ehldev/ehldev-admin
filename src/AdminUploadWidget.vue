@@ -18,7 +18,7 @@
       :key="item.id"
     >
       <img :src="item.url" alt="" />
-      <button type="button" class="remove-item" @click="removeItem(index)">
+      <button type="button" class="remove-item d-flex align-items-center" @click="removeItem(index)">
         <i class="ri-close-circle-line"></i>
       </button>
     </div>
@@ -123,8 +123,12 @@ export default {
 <style lang="scss" scoped>
 .admin-upload-widget {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 16px;
+
+  @media (min-width: $md) {
+    grid-template-columns: repeat(4, 1fr);
+  }
 
   .preview-form-image {
     width: 100%;

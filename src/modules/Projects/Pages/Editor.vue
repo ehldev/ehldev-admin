@@ -99,6 +99,7 @@
             :init="{
               plugins: 'lists link image table code help wordcount',
             }"
+            api-key="ru3qch58obk3mn37a2hzhrp9w9rbnmvda3bzi786qhrwqxdj"
           />
         </div>
 
@@ -131,7 +132,7 @@
         </div>
 
         <div class="admin-form-group">
-          <label for="name" class="mb-0">Galería de imágenes</label>
+          <label for="images" class="mb-0">Galería de imágenes</label>
           <p class="admin-form-description">Máximo 6 imágenes</p>
 
           <AdminUploadWidget
@@ -179,9 +180,6 @@ export default {
     return {
       loading: true,
       slug: this.$route.params.slug,
-      editorOption: {
-        // Some Quill options...
-      },
       uploadType: null,
       form: {
         name: "Agap",
@@ -217,7 +215,6 @@ export default {
       image: { required },
       name: { required },
       slug: { required },
-      description: { required },
       level: { required },
       url: { required },
       tags: { required },
@@ -254,7 +251,7 @@ export default {
       try {
         await ProjectsService.save({
           ...this.form,
-          tags: JSON.stringify(this.form.tags),
+          tags: JSON.stringify(this.form.tags)
         });
 
         this.$toast.open({

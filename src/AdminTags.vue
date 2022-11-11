@@ -11,9 +11,9 @@
     />
 
     <div class="mt-2">
-        <span class="admin-badge admin-badge-primary mr-2 d-flex align-items-center" v-for="(item, i) in list" :key="item">
+        <span class="admin-badge admin-badge-info mr-2 mb-2 d-flex align-items-center" v-for="(item, i) in list" :key="item">
             {{ item }}
-            <button type="button" class="bg-transparent text-white border-none ml-2 p-0" @click="remove(i)">
+            <button type="button" class="bg-transparent border-none ml-2 p-0" @click="remove(i)">
                 <i class="ri-close-circle-line"></i>
             </button>
         </span>
