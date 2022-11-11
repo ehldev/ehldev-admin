@@ -11,9 +11,42 @@
 
       <form action="" class="admin-form admin-form-sm" @submit.prevent="save()">
         <div class="admin-form-group">
-          <label for="name">Imagen destacada</label>
+          <label for="image">Imagen destacada</label>
 
-          <AdminUploadWidget :multipleFiles="false" :maxFiles="1" @success="setImages($event, 'image')" />
+          <AdminUploadWidget
+            :multipleFiles="false"
+            :maxFiles="1"
+            :showError="$v.form.image.$error"
+            @success="setImages($event, 'image')"
+          />
+
+          <AdminFormError
+            message="El campo es requerido"
+            v-if="$v.form.image.$error"
+          />
+        </div>
+
+        <div class="admin-form-group">
+          <label for="level">Posicionamiento</label>
+          <select
+            id="level"
+            class="admin-form-field"
+            :class="{ 'admin-form-field-error': $v.form.level.$error }"
+            v-model="form.level"
+          >
+            <option
+              :value="item.key"
+              v-for="item in levelOptions"
+              :key="item.key"
+            >
+              {{ item.label }}
+            </option>
+          </select>
+
+          <AdminFormError
+            message="El campo es requerido"
+            v-if="$v.form.level.$error"
+          />
         </div>
 
         <div class="admin-form-group">
@@ -22,8 +55,14 @@
             type="text"
             id="name"
             class="admin-form-field"
+            :class="{ 'admin-form-field-error': $v.form.name.$error }"
             placeholder="Ingresar"
             v-model="form.name"
+          />
+
+          <AdminFormError
+            message="El campo es requerido"
+            v-if="$v.form.name.$error"
           />
         </div>
 
@@ -33,8 +72,14 @@
             type="text"
             id="slug"
             class="admin-form-field"
+            :class="{ 'admin-form-field-error': $v.form.slug.$error }"
             placeholder="Ingresar"
             v-model="form.slug"
+          />
+
+          <AdminFormError
+            message="El campo es requerido"
+            v-if="$v.form.slug.$error"
           />
         </div>
 
@@ -49,27 +94,29 @@
 
         <div class="admin-form-group">
           <label for="description">Descripción completa</label>
-          <!-- <quill-editor
+          <quill-editor
             ref="editor"
+            class="form-text-editor"
             v-model="form.description"
             :options="editorOption"
-            class="form-text-editor"
-          /> -->
-          <div id="editor">
-            <p>Hello World!</p>
-            <p>Some initial <strong>bold</strong> text</p>
-            <p><br /></p>
-          </div>
+            @change="onEditorChange($event)"
+          />
         </div>
 
         <div class="admin-form-group">
           <label for="url">URL de proyecto</label>
           <input
-            type="url"
+            type="text"
             id="url"
             class="admin-form-field"
+            :class="{ 'admin-form-field-error': $v.form.url.$error }"
             placeholder="Ingresar"
-            v-model="form.name"
+            v-model="form.url"
+          />
+
+          <AdminFormError
+            message="El campo es requerido"
+            v-if="$v.form.url.$error"
           />
         </div>
 
@@ -79,8 +126,14 @@
             type="text"
             id="tags"
             class="admin-form-field"
+            :class="{ 'admin-form-field-error': $v.form.tags.$error }"
             placeholder="Ingresar"
-            v-model="form.name"
+            v-model="form.tags"
+          />
+
+          <AdminFormError
+            message="El campo es requerido"
+            v-if="$v.form.tags.$error"
           />
         </div>
 
@@ -88,7 +141,11 @@
           <label for="name" class="mb-0">Galería de imágenes</label>
           <p class="admin-form-description">Máximo 6 imágenes</p>
 
-          <AdminUploadWidget :multipleFiles="true" :maxFiles="6" @success="setImages($event, 'images')" />
+          <AdminUploadWidget
+            :multipleFiles="true"
+            :maxFiles="6"
+            @success="setImages($event, 'images')"
+          />
         </div>
 
         <div class="admin-form-group d-flex justify-content-end">
@@ -112,23 +169,27 @@
 </template>
 
 <script>
-import Quill from "quill";
+import { required } from "vuelidate/lib/validators";
 
 import Utils from "@/utils";
 
 import ProjectsService from "../Services";
 
 import AdminUploadWidget from "@/AdminUploadWidget";
+import AdminFormError from "@/AdminFormError";
 
 export default {
   data() {
     return {
       loading: true,
       slug: this.$route.params.slug,
+      editorOption: {
+        // Some Quill options...
+      },
       uploadType: null,
       form: {
         name: "Agap",
-        description: "Agap",
+        description: null,
         summary: "Agap",
         slug: "agap",
         image: null,
@@ -152,39 +213,23 @@ export default {
           label: "Proyecto destacado",
         },
       ],
-      editorOption: {
-        // Some Quill options...
-        theme: "snow",
-        // modules: {
-        //   toolbar: [
-        //     ["bold", "italic", "underline", "strike"],
-        //     ["blockquote", "code-block"],
-        //   ],
-        //   syntax: {
-        //     highlight: (text) => hljs.highlightAuto(text).value,
-        //   },
-        // },
-      },
     };
   },
-  mounted() {
-    setTimeout(() => {
-      var options = {
-        debug: "info",
-        // modules: {
-        //   toolbar: "#toolbar",
-        // },
-        placeholder: "Compose an epic...",
-        readOnly: true,
-        theme: "snow",
-      };
-      // var editorContainer = document.getElementById('editor');
-      let editor = new Quill("#editor", options);
-      editor.enable();
-    }, 1000);
+  mounted() {},
+  validations: {
+    form: {
+      image: { required },
+      name: { required },
+      slug: { required },
+      description: { required },
+      level: { required },
+      url: { required },
+      tags: { required },
+    },
   },
   components: {
     AdminUploadWidget,
+    AdminFormError,
   },
   watch: {
     "form.name": function (val) {
@@ -193,16 +238,52 @@ export default {
   },
   methods: {
     async save() {
-      let response = await ProjectsService.save({ ...this.form, tags: JSON.stringify(this.form.tags) });
-      console.log(response);
+      this.$v.$touch();
+      if (this.$v.$error) {
+        this.$nextTick(() => {
+          const errorElement = document.querySelector(".admin-form-error");
+
+          this.$smoothScroll({
+            scrollTo: errorElement,
+            updateHistory: false,
+            offset: -50,
+          });
+        });
+
+        return;
+      }
+
+      try {
+        await ProjectsService.save({
+          ...this.form,
+          tags: JSON.stringify(this.form.tags),
+        });
+
+        this.$toast.open({
+          message: "Registrado correctamente.",
+          type: "success",
+        });
+
+        this.$router.push({ name: "projects-list" });
+      } catch (error) {
+        console.log(error);
+        this.$toast.open({
+          message: "Ocurrió un error.",
+          type: "error",
+        });
+      }
     },
     setImages(e, type) {
-      if(type === 'image') {
-        this.form.image = e[0]
+      if (type === "image") {
+        this.form.image = e[0];
       } else {
-        this.form.images = e
+        this.form.images = e;
       }
-    }
+    },
+    onEditorChange({ html }) {
+      console.log("editor change!");
+      this.form.description = html;
+    },
   },
 };
 </script>

@@ -33,6 +33,10 @@
         &:focus {
             border: 1px solid rgba($admin-blue, .9) !important;
         }
+
+        &-error {
+            border: 1px solid $admin-red;
+        }
     }
 
     &-description {

@@ -3,6 +3,7 @@
     <button
       type="button"
       class="preview-form-image upload-button d-flex flex-column main-shadow"
+      :class="{'error': showError}"
       @click="openImageWidget()"
       v-if="files.length < maxFiles"
     >
@@ -12,6 +13,7 @@
 
     <div
       class="preview-form-image position-relative main-shadow"
+      :class="{'error': showError}"
       v-for="(item, index) in files"
       :key="item.id"
     >
@@ -75,6 +77,7 @@ export default {
       default: false,
     },
     maxFiles: Number,
+    showError: Boolean
   },
   methods: {
     openImageWidget() {
@@ -133,6 +136,10 @@ export default {
     border-radius: 8px;
     transition: border-color 0.1s;
     cursor: pointer;
+
+    &.error {
+      border: 1px dashed $admin-red;
+    }
 
     &:hover {
       border: 1px dashed $admin-blue;

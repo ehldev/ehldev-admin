@@ -67,6 +67,7 @@
                     :src="item.image.url"
                     alt="Imagen principal"
                     class="admin-table-image"
+                    v-if="item.image"
                   />
                 </div>
               </td>

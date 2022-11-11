@@ -14,6 +14,12 @@ import store from './store'
 // Vue.component('AdminNav', AdminNav)
 // Vue.component('AdminSearch', AdminSearch)
 
+// Plugins
+import '@/plugins/vue-toast-notification'
+import '@/plugins/vuelidate'
+import '@/plugins/vue2-smooth-scroll'
+import '@/plugins/vuejs-quill'
+
 import './assets/scss/app.scss'
 import 'remixicon/fonts/remixicon.css'
 import './assets/scss/app.scss'
