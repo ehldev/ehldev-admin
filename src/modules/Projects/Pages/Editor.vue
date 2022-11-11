@@ -94,12 +94,11 @@
 
         <div class="admin-form-group">
           <label for="description">Descripción completa</label>
-          <quill-editor
-            ref="editor"
-            class="form-text-editor"
+          <editor
             v-model="form.description"
-            :options="editorOption"
-            @change="onEditorChange($event)"
+            :init="{
+              plugins: 'lists link image table code help wordcount',
+            }"
           />
         </div>
 
@@ -122,14 +121,8 @@
 
         <div class="admin-form-group">
           <label for="tags">Tags</label>
-          <input
-            type="text"
-            id="tags"
-            class="admin-form-field"
-            :class="{ 'admin-form-field-error': $v.form.tags.$error }"
-            placeholder="Ingresar"
-            v-model="form.tags"
-          />
+          
+          <AdminTags :showError="$v.form.tags.$error" @success="setTags" />
 
           <AdminFormError
             message="El campo es requerido"
@@ -171,12 +164,15 @@
 <script>
 import { required } from "vuelidate/lib/validators";
 
+import Editor from "@tinymce/tinymce-vue";
+
 import Utils from "@/utils";
 
 import ProjectsService from "../Services";
 
 import AdminUploadWidget from "@/AdminUploadWidget";
 import AdminFormError from "@/AdminFormError";
+import AdminTags from '@/AdminTags'
 
 export default {
   data() {
@@ -230,6 +226,8 @@ export default {
   components: {
     AdminUploadWidget,
     AdminFormError,
+    Editor,
+    AdminTags
   },
   watch: {
     "form.name": function (val) {
@@ -280,10 +278,9 @@ export default {
         this.form.images = e;
       }
     },
-    onEditorChange({ html }) {
-      console.log("editor change!");
-      this.form.description = html;
-    },
+    setTags(event) {
+      this.form.tags = event
+    }
   },
 };
 </script>
