@@ -47,7 +47,13 @@
             </div>
           </section>
 
-          <AdminSearch placeholder="Buscar por nombre" @search="onSearch" />
+          <div class="d-flex">
+            <button type="button" title="Recargar" class="bg-transparent border-none mr-3" @click="reload()">
+              <i class="ri-restart-line"></i>
+            </button>
+
+            <AdminSearch placeholder="Buscar por nombre" @search="onSearch" />
+          </div>
         </div>
         <table class="admin-table main-shadow">
           <thead>
@@ -129,7 +135,7 @@ import Pagination from "vue-pagination-2";
 
 import ProjectsService from "../Services";
 
-import AdminDropdown from "@/AdminDropdown";
+import { AdminDropdown } from "ehldev-admin-library";
 import AdminFilters from "@/AdminFilters";
 
 export default {
@@ -279,7 +285,18 @@ export default {
       }
 
       this.setFilters(this.filters);
+
+      this.getItems()
     },
+    async reload() {
+      await this.getItems()
+
+      this.$toast.open({
+          message: "Actualizado!",
+          type: "success",
+          duration: 1500
+        });
+    }
   },
   computed: {
     selectedFilters: function () {

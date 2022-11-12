@@ -77,9 +77,9 @@ export default {
     checkOption(value, item, subItem) {
       if (item.type === "single") {
         item.options.forEach((i) => (i.value = false));
-        subItem.value = !value;
+        subItem.value = value.target ? value.target.checked : !value;
       } else if(item.type === 'multiple') {
-        subItem.value = !value
+        subItem.value = value.target ? value.target.checked : !value
       }
     },
   },

@@ -44,10 +44,10 @@ export default {
   data() {
     return {
       chartData: {
-        labels: ["January", "February", "March", "Junio", "Julio", "Agosto"],
+        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
         datasets: [
           {
-            label: "Ventas mensuales",
+            label: "Visitas mensuales",
             backgroundColor: "#42d392",
             data: [40, 20, 10, 15, 50, 100],
           },
@@ -81,7 +81,7 @@ export default {
 <style lang="scss" scoped>
 .home-page {
   .chart-component {
-    max-width: 300px;
+    max-width: 340px;
   }
 
   .welcome-message {

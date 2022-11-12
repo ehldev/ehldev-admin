@@ -5,10 +5,6 @@
     </div>
 
     <div class="admin-card mt-6">
-      <pre>
-        {{ form }}
-      </pre>
-
       <form action="" class="admin-form admin-form-sm" @submit.prevent="save()">
         <div class="admin-form-group">
           <label for="image">Imagen destacada</label>
@@ -21,7 +17,7 @@
           />
 
           <AdminFormError
-            message="El campo es requerido"
+            message="La imagen es requerida"
             v-if="$v.form.image.$error"
           />
         </div>
@@ -171,9 +167,7 @@ import Utils from "@/utils";
 
 import ProjectsService from "../Services";
 
-import AdminUploadWidget from "@/AdminUploadWidget";
-import AdminFormError from "@/AdminFormError";
-import AdminTags from '@/AdminTags'
+import { AdminUploadWidget, AdminFormError, AdminTags } from "ehldev-admin-library";
 
 export default {
   data() {
@@ -182,10 +176,10 @@ export default {
       slug: this.$route.params.slug,
       uploadType: null,
       form: {
-        name: "Agap",
+        name: null,
         description: null,
-        summary: "Agap",
-        slug: "agap",
+        summary: null,
+        slug: null,
         image: null,
         images: [],
         url: null,

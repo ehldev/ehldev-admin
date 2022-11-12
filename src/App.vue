@@ -18,13 +18,15 @@
 
       <template slot="main">
         <router-view />
+
+        <AdminFooter />
       </template>
     </AdminLayout>
   </div>
 </template>
 
 <script>
-import { AdminLayout } from "ehldev-admin-library";
+import { AdminLayout, AdminFooter } from "ehldev-admin-library";
 
 export default {
   data() {
@@ -88,7 +90,8 @@ export default {
     }
   },
   components: {
-    AdminLayout
+    AdminLayout,
+    AdminFooter
   }
 }
 </script>
