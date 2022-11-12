@@ -21,7 +21,7 @@ let routes = [
   }
 ]
 
-routes.push(ProjectsRoutes[0])
+routes.push(...ProjectsRoutes)
 
 const router = new VueRouter({
   mode: 'history',

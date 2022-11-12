@@ -1,4 +1,4 @@
-import http from '@/plugins/axios'
+import http from 'ehldev-admin-library/dist/plugins/axios'
 
 export default {
     list(params) {
