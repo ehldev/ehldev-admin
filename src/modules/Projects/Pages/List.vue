@@ -5,7 +5,7 @@
 
       <router-link
         :to="{ name: 'projects-create' }"
-        class="admin-button admin-button-primary"
+        class="admin-button admin-button-green"
       >
         Agregar
         <i class="ri-add-fill"></i>
@@ -29,7 +29,7 @@
           <section class="d-flex align-items-start">
             <AdminDropdown contentPosition="left" class="mr-2">
               <template slot="toggle">
-                <button type="button" class="admin-button admin-button-primary">
+                <button type="button" class="admin-button admin-button-green">
                   Filtrar
                   <i class="ri-filter-line"></i>
                 </button>
@@ -164,7 +164,7 @@ export default {
         {
           key: "ACTIVATED",
           label: "Activo",
-          color: "primary",
+          color: "green",
         },
         {
           key: "DEACTIVATED",

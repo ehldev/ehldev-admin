@@ -10,10 +10,11 @@ $admin-red: #D63230;
 $color-primary: #42d392;
 $admin-lightblue: #add8e6;
 $admin-green: #42d392;
+$admin-green-dark: #42b883;
 
 :root {
-    --color-primary: #42d392;
-    --color-primary-dark: #42b883;
+    --admin-color-primary: #42d392;
+    --admin-color-primary-dark: #42b883;
     --admin-color-red: #D63230;
     --admin-color-green: #42d392;
 }

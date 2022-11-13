@@ -152,8 +152,8 @@
             Cancelar
           </router-link>
 
-          <button type="submit" class="admin-button admin-button-primary">
-            Guardar
+          <button type="submit" class="admin-button admin-button-green">
+            {{ itemSlug ? "Actualizar" : "Guardar" }} proyecto
             <i class="ri-save-line"></i>
           </button>
         </div>
@@ -172,11 +172,10 @@ import Utils from "@/utils";
 import ProjectsService from "../Services";
 
 import {
-  AdminFormError
+  AdminFormError,
+  AdminTags,
+  AdminUploadWidget
 } from "ehldev-admin-library";
-
-import AdminTags from '@/AdminTags'
-import AdminUploadWidget from '@/AdminUploadWidget'
 
 export default {
   data() {

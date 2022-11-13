@@ -46,7 +46,7 @@
         <div class="text-right mt-2">
           <button
             type="button"
-            class="admin-button admin-button-primary ml-auto py-1 px-2"
+            class="admin-button admin-button-green ml-auto py-1 px-2"
             @click="$emit('setFilters', items)"
           >
             Aplicar

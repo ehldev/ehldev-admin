@@ -105,13 +105,13 @@
         margin-left: 8px;
     }
 
-    &-primary {
-        background-color: var(--color-primary);
+    &-green {
+        background-color: $admin-green;
         color: white !important;
         transition: background-color 0.3s;
 
         &:hover {
-            background-color: var(--color-primary-dark);
+            background-color: $admin-green-dark;
             color: white !important;
             text-decoration: none;
         }
@@ -223,8 +223,8 @@
     padding: .3rem .5rem;
     border-radius: 10rem;
   
-    &-primary {
-      background-color: var(--color-primary);
+    &-green {
+      background-color: $admin-green;
       color: white;
     }
 

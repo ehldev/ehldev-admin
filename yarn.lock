@@ -3623,10 +3623,10 @@ ee-first@1.1.1:
   resolved "https://registry.npmjs.org/ee-first/-/ee-first-1.1.1.tgz"
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
 
-ehldev-admin-library@0.1.20:
-  version "0.1.20"
-  resolved "https://registry.yarnpkg.com/ehldev-admin-library/-/ehldev-admin-library-0.1.20.tgz#b45de761e1c0e19be8e44e959c3471dbe08790df"
-  integrity sha512-1sQgc8EbBIx1B45+XeIeTMV+NIfWWSYplb48h1XbkZMegCmGmezxayt5kF3RI9pYQnbhCtV7PSh7FqH+ufDvyg==
+ehldev-admin-library@0.1.23:
+  version "0.1.23"
+  resolved "https://registry.yarnpkg.com/ehldev-admin-library/-/ehldev-admin-library-0.1.23.tgz#23d1789d9af6b28716f2217789e90335bac686b5"
+  integrity sha512-F1HqLfiyvctzjnTXzTP9CvvdyqNg6PIQR1e3k3x0a0QAkMu0ylhVbG6BYl3gG2S0RBYH2YnAb+qYK6sIx9/chQ==
   dependencies:
     core-js "^3.6.5"
     vue "^2.6.11"
