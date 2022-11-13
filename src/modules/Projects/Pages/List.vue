@@ -14,11 +14,17 @@
 
     <div class="admin-card mt-6">
       <div class="table-container">
-
-        <span class="table-no-data-label" v-if="!items.length">Aún no hay registros</span>
+        <span class="table-no-data-label" v-if="!items.length"
+          >Aún no hay registros</span
+        >
 
         <div
-          class="admin-table-options d-flex justify-content-between align-items-start"
+          class="
+            admin-table-options
+            d-flex
+            justify-content-between
+            align-items-start
+          "
         >
           <section class="d-flex align-items-start">
             <AdminDropdown contentPosition="left" class="mr-2">
@@ -48,7 +54,12 @@
           </section>
 
           <div class="d-flex">
-            <button type="button" title="Recargar" class="bg-transparent border-none mr-3" @click="reload()">
+            <button
+              type="button"
+              title="Recargar"
+              class="bg-transparent border-none mr-3"
+              @click="reload()"
+            >
               <i class="ri-restart-line"></i>
             </button>
 
@@ -66,7 +77,7 @@
             </tr>
           </thead>
           <tbody class="text-center">
-            <tr v-for="item in items" :key="item._id">
+            <tr v-for="(item, index) in items" :key="item._id">
               <td>
                 <div class="admin-table-image-container">
                   <img
@@ -102,13 +113,18 @@
                   </template>
 
                   <template slot="content">
-                    <a href="" class="admin-dropdown-item">Ver detalles</a>
+                    <a :href="getUrl(item)" target="_blank" class="admin-dropdown-item">Ver detalles</a>
                     <router-link
-                      :to="{ name: 'projects-edit', params: { id: item._id } }"
+                      :to="{ name: 'projects-edit', params: { slug: item.slug } }"
                       class="admin-dropdown-item"
                       >Editar</router-link
                     >
-                    <a href="" class="admin-dropdown-item text-red">Eliminar</a>
+                    <a
+                      href=""
+                      class="admin-dropdown-item text-red"
+                      @click.prevent="openDeleteModal(item, index)"
+                      >Eliminar</a
+                    >
                   </template>
                 </AdminDropdown>
               </td>
@@ -158,9 +174,9 @@ export default {
       ],
       paginationOptions: {
         texts: {
-          count: ''
+          count: "",
           // count:
-            // "Mostrando {from} a {to} registros de {count} en total|{count} en total| Un registro encontrado",
+          // "Mostrando {from} a {to} registros de {count} en total|{count} en total| Un registro encontrado",
         },
       },
       filters: [
@@ -207,7 +223,7 @@ export default {
       queryParams: {
         search: null,
         page: 1,
-        limit: 5
+        limit: 5,
       },
     };
   },
@@ -242,7 +258,7 @@ export default {
       return this.projectStatus.find((item) => item.key === object.status);
     },
     paginate() {
-      this.getItems()
+      this.getItems();
     },
     setFilters(data) {
       this.filters = JSON.parse(JSON.stringify(data));
@@ -266,16 +282,16 @@ export default {
 
       this.queryParams = {
         ...this.queryParams,
-        ...filters
-      }
+        ...filters,
+      };
 
       this.getItems();
     },
     onSearch(e) {
-      this.queryParams.search = e
-      this.queryParams.page = 1
+      this.queryParams.search = e;
+      this.queryParams.page = 1;
 
-      this.getItems()
+      this.getItems();
     },
     removeFilter(item) {
       let parent = this.filters.find((i) => i.key === item.parent.key);
@@ -286,17 +302,50 @@ export default {
 
       this.setFilters(this.filters);
 
-      this.getItems()
+      this.getItems();
     },
     async reload() {
-      await this.getItems()
+      await this.getItems();
 
       this.$toast.open({
-          message: "Actualizado!",
-          type: "success",
-          duration: 1500
+        message: "Actualizado!",
+        type: "success",
+        duration: 1500,
+      });
+    },
+    async openDeleteModal(item, index) {
+      try {
+        let result = await this.$swal({
+          title: "¿Está seguro de eliminar?",
+          text: "Se eliminará permanentemente",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "var(--admin-color-green)",
+          cancelButtonColor: "var(--admin-color-red)",
+          confirmButtonText: "Sí, eliminar",
         });
-    }
+
+        if(result.isConfirmed) {
+          this.deleteItem(item._id, index);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async deleteItem(id, index) {
+      try {
+        await ProjectsService.deleteItem(id);
+
+        this.$toast.open({
+          message: "Eliminado correctamente.",
+          type: "success",
+        });
+
+        this.items.splice(index, 1)
+      } catch (error) {
+        console.log(error)
+      }
+    },
   },
   computed: {
     selectedFilters: function () {

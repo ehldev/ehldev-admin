@@ -9,6 +9,7 @@ import 'ehldev-admin-library/dist/plugins/vuelidate'
 import 'ehldev-admin-library/dist/plugins/vue2-smooth-scroll'
 import 'ehldev-admin-library/dist/plugins/vue-toast-notification'
 import "./plugins/chart"
+import "./plugins/vue-sweetalert"
 
 import './assets/scss/app.scss'
 import 'remixicon/fonts/remixicon.css'

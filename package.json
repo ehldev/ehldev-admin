@@ -19,6 +19,7 @@
     "vue-chartjs": "^4.1.2",
     "vue-pagination-2": "^3.1.0",
     "vue-router": "^3.2.0",
+    "vue-sweetalert2": "^5.0.5",
     "vue-toast-notification": "^0.6",
     "vue2-smooth-scroll": "^1.6.0",
     "vuejs-quill": "^1.4.0",

@@ -1,7 +1,9 @@
 <template>
   <section>
     <div class="d-flex justify-content-between">
-      <h1 class="admin-name">{{ slug ? "Editar" : "Registrar" }} proyecto</h1>
+      <h1 class="admin-name">
+        {{ itemSlug ? "Editar" : "Registrar" }} proyecto
+      </h1>
     </div>
 
     <div class="admin-card mt-6">
@@ -12,6 +14,7 @@
           <AdminUploadWidget
             :multipleFiles="false"
             :maxFiles="1"
+            :oldFiles="[form.image]"
             :showError="$v.form.image.$error"
             @success="setImages($event, 'image')"
           />
@@ -118,8 +121,8 @@
 
         <div class="admin-form-group">
           <label for="tags">Tags</label>
-          
-          <AdminTags :showError="$v.form.tags.$error" @success="setTags" />
+
+          <AdminTags :showError="$v.form.tags.$error" :oldList="form.tags" @success="setTags" />
 
           <AdminFormError
             message="El campo es requerido"
@@ -134,6 +137,7 @@
           <AdminUploadWidget
             :multipleFiles="true"
             :maxFiles="6"
+            :oldFiles="form.images"
             @success="setImages($event, 'images')"
           />
         </div>
@@ -167,13 +171,18 @@ import Utils from "@/utils";
 
 import ProjectsService from "../Services";
 
-import { AdminUploadWidget, AdminFormError, AdminTags } from "ehldev-admin-library";
+import {
+  AdminFormError
+} from "ehldev-admin-library";
+
+import AdminTags from '@/AdminTags'
+import AdminUploadWidget from '@/AdminUploadWidget'
 
 export default {
   data() {
     return {
       loading: true,
-      slug: this.$route.params.slug,
+      itemSlug: this.$route.params.slug,
       uploadType: null,
       form: {
         name: null,
@@ -203,6 +212,11 @@ export default {
       ],
     };
   },
+  created() {
+    if (this.itemSlug) {
+      this.getData();
+    }
+  },
   mounted() {},
   validations: {
     form: {
@@ -218,7 +232,7 @@ export default {
     AdminUploadWidget,
     AdminFormError,
     Editor,
-    AdminTags
+    AdminTags,
   },
   watch: {
     "form.name": function (val) {
@@ -226,6 +240,15 @@ export default {
     },
   },
   methods: {
+    async getData() {
+      try {
+        let response = await ProjectsService.get(this.itemSlug);
+        this.form = response.data.payload
+        this.form.tags = JSON.parse(this.form.tags)
+      } catch (error) {
+        console.log(error)
+      }
+    },
     async save() {
       this.$v.$touch();
       if (this.$v.$error) {
@@ -245,7 +268,7 @@ export default {
       try {
         await ProjectsService.save({
           ...this.form,
-          tags: JSON.stringify(this.form.tags)
+          tags: JSON.stringify(this.form.tags),
         });
 
         this.$toast.open({
@@ -270,8 +293,8 @@ export default {
       }
     },
     setTags(event) {
-      this.form.tags = event
-    }
+      this.form.tags = event;
+    },
   },
 };
 </script>

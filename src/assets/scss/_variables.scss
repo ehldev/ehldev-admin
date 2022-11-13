@@ -1,7 +1,19 @@
 
 @import "~ehldev-admin-library/dist/styles/_variables.scss";
 
+$header-height: 70px;
+$admin-dark: #252b3b;
+$admin-gray: #7b8186;
+$admin-light: #f1f5f7;
+$admin-blue: #4aa3ff;
+$admin-red: #D63230;
+$color-primary: #42d392;
+$admin-lightblue: #add8e6;
+$admin-green: #42d392;
+
 :root {
     --color-primary: #42d392;
     --color-primary-dark: #42b883;
+    --admin-color-red: #D63230;
+    --admin-color-green: #42d392;
 }
