@@ -19,12 +19,7 @@
         >
 
         <div
-          class="
-            admin-table-options
-            d-flex
-            justify-content-between
-            align-items-start
-          "
+          class="admin-table-options d-flex justify-content-between align-items-start"
         >
           <section class="d-flex align-items-start">
             <AdminDropdown contentPosition="left" class="mr-2">
@@ -113,9 +108,17 @@
                   </template>
 
                   <template slot="content">
-                    <a :href="getUrl(item)" target="_blank" class="admin-dropdown-item">Ver detalles</a>
+                    <a
+                      :href="getUrl(item)"
+                      target="_blank"
+                      class="admin-dropdown-item"
+                      >Ver detalles</a
+                    >
                     <router-link
-                      :to="{ name: 'projects-edit', params: { slug: item.slug } }"
+                      :to="{
+                        name: 'projects-edit',
+                        params: { slug: item.slug },
+                      }"
                       class="admin-dropdown-item"
                       >Editar</router-link
                     >
@@ -298,11 +301,11 @@ export default {
       if (parent) {
         let index = parent.options.findIndex((i2) => i2.key == item.key);
         parent.options[index].value = false;
+
+        this.setFilters(this.filters);
+
+        this.getItems();
       }
-
-      this.setFilters(this.filters);
-
-      this.getItems();
     },
     async reload() {
       await this.getItems();
@@ -325,7 +328,7 @@ export default {
           confirmButtonText: "Sí, eliminar",
         });
 
-        if(result.isConfirmed) {
+        if (result.isConfirmed) {
           this.deleteItem(item._id, index);
         }
       } catch (error) {
@@ -341,9 +344,9 @@ export default {
           type: "success",
         });
 
-        this.items.splice(index, 1)
+        this.items.splice(index, 1);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     },
   },
