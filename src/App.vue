@@ -16,6 +16,43 @@
         />
       </template>
 
+      <template slot="header">
+        <AdminHeader @toggleSidebar="showSidebar = !showSidebar">
+          <template slot="content">
+            <AdminDropdown>
+              <template slot="toggle">
+                <button
+                  type="button"
+                  class="
+                    dropdown-button
+                    cursor-pointer
+                    main-shadow
+                    d-flex
+                    align-items-center
+                    border-none
+                    px-2
+                  "
+                >
+                  <img
+                    src="http://nazox.vuejs-light.themesdesign.in/img/avatar-4.e0ab315a.jpg"
+                    alt=""
+                    class="rounded-circle mr-2"
+                  />
+
+                  <span class="font-weight-bold text-uppercase">Erick</span>
+                </button>
+              </template>
+
+              <template slot="content">
+                <a href="" class="admin-dropdown-item">Ver detalles</a>
+                <a href="" class="admin-dropdown-item">Editar</a>
+                <a href="" class="admin-dropdown-item d-flex justify-content-between align-items-center">Salir <i class="ri-logout-box-r-line"></i></a>
+              </template>
+            </AdminDropdown>
+          </template>
+        </AdminHeader>
+      </template>
+
       <template slot="main">
         <router-view />
 
@@ -26,7 +63,12 @@
 </template>
 
 <script>
-import { AdminLayout, AdminFooter } from "ehldev-admin-library";
+import {
+  AdminLayout,
+  AdminHeader,
+  AdminFooter,
+  AdminDropdown,
+} from "ehldev-admin-library";
 
 export default {
   data() {
@@ -36,7 +78,7 @@ export default {
           text: "Visitar web",
           icon: "ri-external-link-fill",
           showSubmenu: false,
-          externalRoute: process.env.VUE_APP_WEB_URL
+          externalRoute: process.env.VUE_APP_WEB_URL,
         },
         {
           text: "Inicio",
@@ -53,11 +95,11 @@ export default {
           subItems: [
             {
               text: "Listar",
-              routeName: "projects-list"
+              routeName: "projects-list",
             },
             {
               text: "Agregar",
-              routeName: "projects-create"
+              routeName: "projects-create",
             },
           ],
           showSubmenu: true,
@@ -87,139 +129,18 @@ export default {
           showSubmenu: false,
         },
       ],
-    }
+    };
   },
   components: {
     AdminLayout,
-    AdminFooter
-  }
-}
+    AdminHeader,
+    AdminFooter,
+    AdminDropdown,
+  },
+};
 </script>
 
 <style lang="scss">
-// Admin
-$md: 768px;
-
-$header-height: 70px;
-$admin-dark: #252b3b;
-$admin-gray: #7b8186;
-$admin-light: #f1f5f7;
-$admin-blue: #4aa3ff;
-$admin-red: #d63230;
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.admin-layout {
-  a {
-    color: rgba($admin-blue, 0.9);
-    transition: color 0.3s;
-
-    &:hover {
-      color: $admin-blue;
-    }
-  }
-}
-
-.ql-editor {
-  min-height: 200px !important;
-}
-
-img {
-  max-width: 100%;
-  max-height: 100%;
-}
-
-// Box model
-.w-100 {
-  width: 100%;
-}
-
-.border-0 {
-  border: none;
-}
-
-.d-inline-block {
-  display: inline-block;
-}
-
-// Text
-.text-left {
-  text-align: left;
-}
-
-.text-decoration-none {
-  text-decoration: none;
-}
-
-.text-gray {
-  color: $admin-gray;
-}
-
-.text-red {
-  color: $admin-red;
-}
-
-.text-small {
-  font-size: 12px;
-}
-
-.font-weight-semibold {
-  font-weight: 500;
-}
-
-// Flexbox
-.d-flex {
-  display: flex;
-}
-
-.justify-content-between {
-  justify-content: space-between;
-}
-
-.align-items-start {
-  align-items: flex-start;
-}
-
-.cursor-pointer {
-  cursor: pointer;
-}
-
-.admin-page-title {
-  font-size: 15px;
-  text-transform: uppercase;
-  font-weight: 700;
-}
-
-.admin-table {
-  &-container {
-    margin-top: 2rem;
-  }
-
-  thead {
-    min-height: 40px;
-  }
-}
-
-.admin-table-image {
-  width: 50px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  img {
-    max-width: 100%;
-  }
-}
-
-.admin-table-text {
-  font-size: 14px;
-}
-
 .preview-image {
   width: 120px;
   height: 120px;
@@ -230,6 +151,33 @@ img {
 
   img {
     border-radius: 6px;
+  }
+}
+
+.user-dropdown {
+  .image {
+    width: 35px;
+  }
+}
+
+.username {
+  font-size: 1rem;
+}
+
+.dropdown-button {
+  background-color: white;
+  color: $admin-gray;
+  // width: 40px;
+  // height: 40px;
+  // border: 1px solid rgba($admin-dark, 0.7);
+
+  i {
+    font-size: 1.8em;
+  }
+
+  img {
+    width: 37px;
+    height: 37px;
   }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="d-flex justify-content-between">
-      <h1 class="admin-title">Proyectos</h1>
+      <h1 class="admin-page-title">Proyectos</h1>
 
       <router-link
         :to="{ name: 'projects-create' }"

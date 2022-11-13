@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="d-flex justify-content-between">
-      <h1 class="admin-name">
+      <h1 class="admin-page-title">
         {{ itemSlug ? "Editar" : "Registrar" }} proyecto
       </h1>
     </div>

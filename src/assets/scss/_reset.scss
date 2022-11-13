@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: $admin-light;
+}
+
 a {
     color: rgba($admin-blue, .9);
     text-decoration: none;
@@ -20,4 +24,8 @@ button {
 
 textarea {
     min-height: 100px;
+}
+
+img {
+    max-width: 100%;
 }
