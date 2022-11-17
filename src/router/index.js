@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import ProjectsRoutes from '../modules/Projects/Routes'
+import AuthRoutes from '../modules/Auth/Routes'
 
 Vue.use(VueRouter)
 
@@ -21,7 +22,7 @@ let routes = [
   }
 ]
 
-routes.push(...ProjectsRoutes)
+routes.push(...ProjectsRoutes, ...AuthRoutes)
 
 const router = new VueRouter({
   mode: 'history',

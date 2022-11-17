@@ -5,7 +5,7 @@
         <div class="welcome-message bg-light p-4 position-relative">
           <button
             type="button"
-            class="welcome-message-toggle bg-transparent border-0"
+            class="welcome-message-toggle bg-transparent border-none"
             @click="showWelcomeMessage = !showWelcomeMessage"
           >
             👋

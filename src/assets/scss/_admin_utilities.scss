@@ -177,6 +177,14 @@
         padding: $n * 4px !important;
     }
 
+    .pt-#{$n} {
+        padding-top: $n * 4px !important;
+    }
+
+    .pb-#{$n} {
+        padding-bottom: $n * 4px !important;
+    }
+
     .px-#{$n} {
         padding-left: $n * 4px !important;
         padding-right: $n * 4px !important;
