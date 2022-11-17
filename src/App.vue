@@ -77,6 +77,7 @@ import {
 export default {
   data() {
     return {
+      user: true,
       showSidebar: true,
       navItems: [
         {

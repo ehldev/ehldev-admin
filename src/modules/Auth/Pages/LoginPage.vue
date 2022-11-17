@@ -2,6 +2,8 @@
   <div class="login-page">
     <section>
       <div class="content pt-4">
+        <div></div>
+
         <div>
           <div class="text-center">
             <img
@@ -12,22 +14,22 @@
           </div>
 
           <div class="text-center">
-            <h1 class="mt-4">¡Bienvenido!</h1>
+            <h1 class="mt-5">¡Bienvenido!</h1>
             <p>Ingresa para administrar tu app web.</p>
           </div>
 
           <form action="" class="mt-5" @submit.prevent="login()">
             <div class="form-group">
-              <span> Icon </span>
-              <div>
+              <span class="form-icon"><i class="ri-user-line"></i></span>
+              <div class="fields">
                 <label for="email">Correo electrónico</label>
                 <input type="email" placeholder="Ingresar" class="form-field" />
               </div>
             </div>
 
             <div class="form-group mt-4">
-              <span> Icon </span>
-              <div>
+              <span class="form-icon"><i class="ri-lock-line"></i></span>
+              <div class="fields">
                 <label for="password">Contraseña</label>
                 <input
                   type="password"
@@ -37,19 +39,27 @@
               </div>
             </div>
 
-            <div class="mt-4">
-              <input type="checkbox" />
-              <span>Recordar</span>
+            <div class="d-flex mt-4">
+              <input type="checkbox" class="checkbox" />
+              <span class="checkbox-label ml-1">Recordar</span>
             </div>
 
             <div class="text-center mt-4">
-              <input
+              <!-- <input
                 type="submit"
-                class="admin-button admin-button-green cursor-pointer mx-auto"
+                class="admin-button admin-button-green cursor-pointer mx-auto py-3 px-9"
                 value="Ingresar"
-              />
+              /> -->
 
-              <a href="" class="d-inline-block mt-4"
+              <button
+                type="submit"
+                class="admin-button admin-button-green cursor-pointer mx-auto py-3 px-9"
+              >
+                Ingresar
+                <i class="ri-login-box-line"></i>
+              </button>
+
+              <a href="" class="reset-password d-inline-block mt-4"
                 >¿Olvidaste tu contraseña?</a
               >
             </div>
@@ -57,20 +67,30 @@
         </div>
 
         <p class="text-center d-inline-block pb-4">
-          © 2022 Programado por <a href="">@ehldev</a>
+          © 2022 Programado por <a :href="webUrl" target="_blank">@ehldev</a>
         </p>
       </div>
     </section>
 
-    <div class="bg position-relative"></div>
+    <div class="bg position-relative d-flex align-items-center">
+      <h2 class="bg-title text-white">
+        Frase <br />
+        que aún voy a pensar
+      </h2>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      webUrl: process.env.VUE_APP_WEB_URL,
+    };
+  },
   methods: {
     login() {
-      alert("Login");
+      this.$router.push({name: 'Home'})
     },
   },
 };
@@ -87,6 +107,7 @@ export default {
     background-image: url("https://images.unsplash.com/photo-1550660473-aed955e2e2a8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80");
     background-size: cover;
     background-position: center;
+    padding: 64px;
 
     &::before {
       content: "";
@@ -97,10 +118,16 @@ export default {
       bottom: 0;
       left: 0;
     }
+
+    &-title {
+      font-size: 3em;
+      font-weight: 700;
+      position: relative;
+    }
   }
 
   .content {
-    max-width: 80%;
+    max-width: 60%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -110,6 +137,64 @@ export default {
 
   .logo {
     width: 150px;
+  }
+
+  .form-group {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba($admin-gray, 0.3);
+    border-radius: 8px;
+    padding: 8px 16px;
+
+    .form-icon {
+      margin-right: 12px;
+    }
+
+    .fields {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    i {
+      font-size: 24px;
+      color: $admin-blue;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 400;
+      color: $admin-dark;
+      display: inline-block;
+      margin-bottom: 0;
+      // margin-bottom: 4px;
+    }
+
+    .form-field {
+      width: 100%;
+      height: 30px;
+      display: inline-block;
+      border: none;
+      outline: none;
+    }
+  }
+
+  .checkbox {
+    &-label {
+      font-size: 0.9em;
+      display: inline-block;
+    }
+  }
+
+  .reset-password {
+    font-size: 0.9em;
+    color: $admin-dark;
+
+    &:hover {
+      color: $admin-blue;
+      text-decoration: underline;
+    }
   }
 }
 </style>
