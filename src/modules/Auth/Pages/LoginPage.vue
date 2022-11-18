@@ -47,18 +47,14 @@
               </div>
             </div>
 
+            <AdminFormError :message="error" v-if="error" />
+
             <div class="d-flex mt-4">
               <input type="checkbox" class="checkbox" />
               <span class="checkbox-label ml-1">Recordar</span>
             </div>
 
             <div class="text-center mt-4">
-              <!-- <input
-                type="submit"
-                class="admin-button admin-button-green cursor-pointer mx-auto py-3 px-9"
-                value="Ingresar"
-              /> -->
-
               <button
                 type="submit"
                 class="
@@ -98,6 +94,8 @@
 <script>
 import { mapGetters } from 'vuex'
 
+import { AdminFormError } from 'ehldev-admin-library'
+
 import AuthService from "../Services/AuthService";
 
 export default {
@@ -108,7 +106,11 @@ export default {
         email: "admin@test.com",
         password: "secret",
       },
+      error: null
     };
+  },
+  components: {
+    AdminFormError
   },
   methods: {
     async login() {
@@ -119,14 +121,14 @@ export default {
         };
 
         let response = await AuthService.login(params);
-        console.log(response)
-        console.log(response)
 
-        if (response.statusText === "OK") {
+        if (response.data.user) {
           this.$store.commit("authModule/SET_SESSION", response.data.token);
 
           this.$router.push({ name: "Home" })
-          // window.location.reload()
+          window.location.reload()
+        } else {
+          this.error = response.data.error
         }
       } catch (error) {
         console.log(error);
