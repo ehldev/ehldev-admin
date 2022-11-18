@@ -18,12 +18,18 @@ const routes = [
       {
         path: 'create',
         name: 'projects-create',
-        component: ProjectsEditor
+        component: ProjectsEditor,
+        meta: {
+          auth: true
+        }
       },
       {
         path: 'edit/:slug',
         name: 'projects-edit',
-        component: ProjectsEditor
+        component: ProjectsEditor,
+        meta: {
+          auth: true
+        }
       }
     ]
   },
