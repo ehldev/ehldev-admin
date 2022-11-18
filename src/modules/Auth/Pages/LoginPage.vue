@@ -124,7 +124,7 @@ export default {
           this.$store.commit("authModule/SET_SESSION", response.data.token);
 
           this.$router.push({ name: "Home" })
-          window.location.reload()
+          // window.location.reload()
         }
       } catch (error) {
         console.log(error);
