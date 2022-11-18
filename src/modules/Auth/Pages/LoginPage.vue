@@ -4,6 +4,8 @@
       <div class="content pt-4">
         <div></div>
 
+        {{ getAuthToken }}
+
         <div>
           <div class="text-center">
             <img
@@ -23,7 +25,12 @@
               <span class="form-icon"><i class="ri-user-line"></i></span>
               <div class="fields">
                 <label for="email">Correo electrónico</label>
-                <input type="email" placeholder="Ingresar" class="form-field" />
+                <input
+                  type="email"
+                  placeholder="Ingresar"
+                  class="form-field"
+                  v-model="form.email"
+                />
               </div>
             </div>
 
@@ -35,6 +42,7 @@
                   type="password"
                   placeholder="Ingresar"
                   class="form-field"
+                  v-model="form.password"
                 />
               </div>
             </div>
@@ -53,7 +61,13 @@
 
               <button
                 type="submit"
-                class="admin-button admin-button-green cursor-pointer mx-auto py-3 px-9"
+                class="
+                  admin-button admin-button-green
+                  cursor-pointer
+                  mx-auto
+                  py-3
+                  px-9
+                "
               >
                 Ingresar
                 <i class="ri-login-box-line"></i>
@@ -82,17 +96,45 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
+import AuthService from "../Services/AuthService";
+
 export default {
   data() {
     return {
       webUrl: process.env.VUE_APP_WEB_URL,
+      form: {
+        email: "admin@test.com",
+        password: "secret",
+      },
     };
   },
   methods: {
-    login() {
-      this.$router.push({name: 'Home'})
+    async login() {
+      try {
+        let params = {
+          email: this.form.email,
+          password: this.form.password,
+        };
+
+        let response = await AuthService.login(params);
+        console.log(response);
+
+        if (response.statusText === "OK") {
+          this.$store.commit("SET_SESSION", response.data.token);
+          // this.$router.push({ name: "Home" });
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
+  computed: {
+    ...mapGetters({
+      'getAuthToken': 'authModule/getAuthToken'
+    })
+  }
 };
 </script>
 

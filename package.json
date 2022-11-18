@@ -13,6 +13,7 @@
     "chart.js": "^3.9.1",
     "core-js": "^3.6.5",
     "ehldev-admin-library": "0.1.33",
+    "js-cookie": "^3.0.1",
     "remixicon": "^2.5.0",
     "tinymce": "^6.2.0",
     "vue": "^2.6.11",

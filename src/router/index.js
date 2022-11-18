@@ -4,6 +4,8 @@ import Home from '../views/Home.vue'
 import ProjectsRoutes from '../modules/Projects/Routes'
 import AuthRoutes from '../modules/Auth/Routes'
 
+import store from '../store'
+
 Vue.use(VueRouter)
 
 let routes = [
@@ -28,6 +30,12 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach(() => {
+    let storeData = store
+    console.log('Token')
+    console.log(storeData.getters['authModule/getAuthToken'])
 })
 
 export default router
