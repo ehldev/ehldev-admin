@@ -119,11 +119,12 @@ export default {
         };
 
         let response = await AuthService.login(params);
-        console.log(response);
 
         if (response.statusText === "OK") {
-          this.$store.commit("SET_SESSION", response.data.token);
-          // this.$router.push({ name: "Home" });
+          this.$store.commit("authModule/SET_SESSION", response.data.token);
+
+          this.$router.push({ name: "Home" })
+          window.location.reload()
         }
       } catch (error) {
         console.log(error);

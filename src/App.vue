@@ -46,7 +46,7 @@
               <template slot="content">
                 <a href="" class="admin-dropdown-item">Ver detalles</a>
                 <a href="" class="admin-dropdown-item">Editar</a>
-                <a href="" class="admin-dropdown-item d-flex justify-content-between align-items-center">Salir <i class="ri-logout-box-r-line"></i></a>
+                <a href="" class="admin-dropdown-item d-flex justify-content-between align-items-center" @click.prevent="logout()">Salir <i class="ri-logout-box-r-line"></i></a>
               </template>
             </AdminDropdown>
           </template>
@@ -67,6 +67,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import {
   AdminLayout,
   AdminHeader,
@@ -77,7 +79,6 @@ import {
 export default {
   data() {
     return {
-      user: false,
       showSidebar: true,
       navItems: [
         {
@@ -143,6 +144,20 @@ export default {
     AdminFooter,
     AdminDropdown,
   },
+  methods: {
+    logout() {
+      this.$store.commit('authModule/LOGOUT')
+
+      window.location.reload()
+      
+      this.$router.push({name: 'login'})
+    }
+  },
+  computed: {
+    ...mapGetters({
+      user: 'authModule/getCurrentUser'
+    })
+  }
 };
 </script>
 

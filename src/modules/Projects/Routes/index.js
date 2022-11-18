@@ -10,7 +10,10 @@ const routes = [
       {
         path: '',
         name: 'projects-list',
-        component: ProjectsList
+        component: ProjectsList,
+        meta: {
+          auth: true
+        }
       },
       {
         path: 'create',

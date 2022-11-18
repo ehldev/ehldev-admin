@@ -4,7 +4,7 @@ export default {
     login(params) {
         return http.post('/auth/login', params)
     },
-    verifyToken() {
-        console.log('Verify')
+    getUserData() {
+        return http.get('/auth/user')
     }
 }
