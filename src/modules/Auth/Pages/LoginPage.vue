@@ -119,6 +119,8 @@ export default {
         };
 
         let response = await AuthService.login(params);
+        console.log(response)
+        console.log(response)
 
         if (response.statusText === "OK") {
           this.$store.commit("authModule/SET_SESSION", response.data.token);
