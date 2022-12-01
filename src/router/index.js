@@ -8,8 +8,7 @@ import store from "../store";
 
 Vue.use(VueRouter);
 
-let routes = [
-  {
+let routes = [{
     path: "/",
     name: "Home",
     component: Home,
@@ -24,7 +23,7 @@ let routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
+      import( /* webpackChunkName: "about" */ "../views/About.vue"),
   },
 ];
 
@@ -39,46 +38,54 @@ const router = new VueRouter({
 router.beforeEach(async (to, from, next) => {
   let token = store.getters["authModule/getAuthToken"];
 
-  if(to.meta.auth) {
-    if (token) {
-      let user = await store.dispatch('authModule/verifyToken');
+  try {
+    if (to.meta.auth) {
+      if (token) {
+        let user = await store.dispatch('authModule/verifyToken');
 
-      if (user) {
-        store.commit("authModule/SET_USER", user);
-        next();
+        console.log(user)
+
+        if (user) {
+          store.commit("authModule/SET_USER", user);
+          next();
+        }
+      } else {
+        next({
+          name: "login"
+        })
       }
     } else {
-      next({ name: "login" })
+      if (to.name == 'login' && token) {
+        next({
+          name: 'Home'
+        })
+      } else {
+        console.log('2')
+        next()
+      }
     }
-  } else {
-    if(to.name == 'login' && token) {
-      next({name: 'Home'})
-    } else {
-      console.log('2')
-      next()
-    }
+  } catch (error) {
+    console.log(error)
   }
 
-  // if (to.name !== "login" && to.meta.auth && !token) next({ name: "login" });
-
-  // if(to.name == 'login' && token) {
-  //   next({name: 'Home'})
-  // } else if(to.name == 'login' && !token) {
-  //   next()
-  // }
-
-  // if (to.meta.auth) {
+  // if(to.meta.auth) {
   //   if (token) {
-  //     let response = await AuthService.getUserData();
-  //     let user = response.data.user;
+  //     let user = await store.dispatch('authModule/verifyToken');
 
-  //     if (response.statusText === "OK" && user) {
+  //     if (user) {
   //       store.commit("authModule/SET_USER", user);
   //       next();
   //     }
+  //   } else {
+  //     next({ name: "login" })
   //   }
   // } else {
-  //   next();
+  //   if(to.name == 'login' && token) {
+  //     next({name: 'Home'})
+  //   } else {
+  //     console.log('2')
+  //     next()
+  //   }
   // }
 });
 

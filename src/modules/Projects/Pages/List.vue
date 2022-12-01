@@ -19,7 +19,12 @@
         >
 
         <div
-          class="admin-table-options d-flex justify-content-between align-items-start"
+          class="
+            admin-table-options
+            d-flex
+            justify-content-between
+            align-items-start
+          "
         >
           <section class="d-flex align-items-start">
             <AdminDropdown contentPosition="left" class="mr-2">
@@ -223,15 +228,15 @@ export default {
           ],
         },
       ],
-      queryParams: {
-        search: null,
-        page: 1,
-        limit: 5,
-      },
+      queryParams: null,
     };
   },
   mounted() {
+    this.setDefaultQueryParams();
+
     this.getItems();
+
+    this.setDefaultQueryParams();
   },
   components: {
     AdminDropdown,
@@ -266,6 +271,8 @@ export default {
     setFilters(data) {
       this.filters = JSON.parse(JSON.stringify(data));
 
+      this.setDefaultQueryParams();
+
       let filters = {};
 
       this.filters.forEach((item) => {
@@ -288,6 +295,9 @@ export default {
         ...filters,
       };
 
+      console.log("Query");
+      console.log(this.queryParams);
+
       this.getItems();
     },
     onSearch(e) {
@@ -298,13 +308,13 @@ export default {
     },
     removeFilter(item) {
       let parent = this.filters.find((i) => i.key === item.parent.key);
+
       if (parent) {
         let index = parent.options.findIndex((i2) => i2.key == item.key);
+
         parent.options[index].value = false;
 
         this.setFilters(this.filters);
-
-        this.getItems();
       }
     },
     async reload() {
@@ -348,6 +358,13 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    setDefaultQueryParams() {
+      this.queryParams = {
+        search: null,
+        page: 1,
+        limit: 5,
+      };
     },
   },
   computed: {

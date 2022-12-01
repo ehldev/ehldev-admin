@@ -20,6 +20,11 @@
             Recuerda que si tienes algún problema puedes solicitar soporte
             escribiéndonos a <a href="">soporte@ehldev.com</a>
           </p>
+
+          <!-- {{ getAuthToken }}
+
+          {{ user }} -->
+
           <p class="text-gray">
             <i
               >Estamos felices de ser tus aliados en el crecimiento de tu
@@ -37,6 +42,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import { Bar } from "vue-chartjs/legacy";
 
 export default {
@@ -75,6 +82,12 @@ export default {
       }
     },
   },
+  computed: {
+    ...mapGetters({
+      'getAuthToken': 'authModule/getAuthToken',
+      user: 'authModule/getCurrentUser'
+    })
+  }
 };
 </script>
 

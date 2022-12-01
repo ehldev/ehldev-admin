@@ -15,7 +15,6 @@
           class="admin-dropdown-item d-flex justify-content-between align-items-center"
           v-for="subitem in item.options"
           :key="subitem.key"
-          @mouseover="onHoverItem = subitem"
         >
           <span
             class="text-uppercase"
@@ -27,11 +26,11 @@
             type="checkbox"
             class="cursor-pointer"
             v-model="subitem.value"
-            v-if="item.type === 'multiple'"
+            
             @change="checkOption($event, item, subitem)"
           />
 
-          <input
+          <!-- <input
             type="checkbox"
             class="cursor-pointer"
             v-model="subitem.value"
@@ -40,7 +39,7 @@
               (item.type === 'single' && onHoverItem.key === subitem.key) ||
               (item.type === 'single' && subitem.value)
             "
-          />
+          /> -->
         </button>
 
         <div class="text-right mt-2">
@@ -64,23 +63,32 @@ export default {
     return {
       items: [],
       currentItem: null,
-      onHoverItem: true,
+      // firstLoad: false
+      // onHoverItem: true
     };
   },
   mounted() {
     this.items = JSON.parse(JSON.stringify(this.filters));
+    // this.firstLoad = true
   },
   props: {
     filters: Array,
   },
+  // watch: {
+  //   filters: function() {
+  //     if(this.firstLoad) {
+  //       this.items = JSON.parse(JSON.stringify(this.filters))
+  //       alert('w')
+  //     }
+  //   }
+  // },
   methods: {
     checkOption(value, item, subItem) {
       if (item.type === "single") {
         item.options.forEach((i) => (i.value = false));
-        subItem.value = value.target ? value.target.checked : !value;
-      } else if(item.type === 'multiple') {
-        subItem.value = value.target ? value.target.checked : !value
       }
+
+      subItem.value = value.target ? value.target.checked : !value;
     },
   },
 };

@@ -1543,6 +1543,11 @@
   optionalDependencies:
     prettier "^1.18.2 || ^2.0.0"
 
+"@vue/devtools-api@^6.0.0-beta.11":
+  version "6.4.5"
+  resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-6.4.5.tgz#d54e844c1adbb1e677c81c665ecef1a2b4bb8380"
+  integrity sha512-JD5fcdIuFxU4fQyXUu3w2KpAJHzTVdN+p4iOX2lMWSHMOoQdMAcpFLZzm9Z/2nmsoZ1a96QEhZ26e50xLBsgOQ==
+
 "@vue/preload-webpack-plugin@^1.1.0":
   version "1.1.2"
   resolved "https://registry.npmjs.org/@vue/preload-webpack-plugin/-/preload-webpack-plugin-1.1.2.tgz"
@@ -3623,13 +3628,14 @@ ee-first@1.1.1:
   resolved "https://registry.npmjs.org/ee-first/-/ee-first-1.1.1.tgz"
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
 
-ehldev-admin-library@0.1.35:
-  version "0.1.35"
-  resolved "https://registry.yarnpkg.com/ehldev-admin-library/-/ehldev-admin-library-0.1.35.tgz#d8809f5f65990229d6288c8a1c980944ba2e2950"
-  integrity sha512-Y02wRZHXUKsmpV2bq3uaarGAww5oCzL2qSHGT1fE7gykLECeu234XwDrMyvfVl86SQi6uk1iHllZUPz7rFQgRQ==
+ehldev-admin-library@0.1.43:
+  version "0.1.43"
+  resolved "https://registry.yarnpkg.com/ehldev-admin-library/-/ehldev-admin-library-0.1.43.tgz#de6c030f45fa05fc833c44a2d4a380a70ee6606a"
+  integrity sha512-doudBNhV7rAr92hjDZW7AWUEucSkY2cGNfje3wzZEx9F5DKRcN1u+pImtqrrga8XTrNE9ZhVtbuOP/c+fAeuYA==
   dependencies:
     core-js "^3.6.5"
     vue "^2.6.11"
+    vuex "^4.1.0"
 
 ejs@^2.6.1:
   version "2.7.4"
@@ -9129,6 +9135,13 @@ vuex@^3.4.0:
   version "3.6.2"
   resolved "https://registry.npmjs.org/vuex/-/vuex-3.6.2.tgz"
   integrity sha512-ETW44IqCgBpVomy520DT5jf8n0zoCac+sxWnn+hMe/CzaSejb/eVw2YToiXYX+Ex/AuHHia28vWTq4goAexFbw==
+
+vuex@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/vuex/-/vuex-4.1.0.tgz#aa1b3ea5c7385812b074c86faeeec2217872e36c"
+  integrity sha512-hmV6UerDrPcgbSy9ORAtNXDr9M4wlNP4pEFKye4ujJF8oqgFFuxDCdOLS3eNoRTtq5O3hoBDh9Doj1bQMYHRbQ==
+  dependencies:
+    "@vue/devtools-api" "^6.0.0-beta.11"
 
 watchpack-chokidar2@^2.0.1:
   version "2.0.1"
